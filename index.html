@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>StopWatch-JS</title>
+
+    <style>
+        body{
+            background-color: black;
+            text-align: center;
+            margin-top: 230px;
+        }
+        #display{
+            color:coral;
+            font-family: "Lato";
+            font-size: 100px;
+            font-weight: 350;
+        }
+        button{
+            width: 100px;
+            height: 35px;
+        }
+        button:hover{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1  id="display">00 : 00 : 00</h1>
+    </div>
+    
+    <button id="toggle" onclick="startStop()">Start</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button id="reset" onclick="reset()">Reset</button>
+
+    <script>
+
+        var sec = 0;
+        var minutes = 0;
+        var hours = 0;
+
+        var interval = null;
+
+        var displaySec = 0;
+        var displayMinutes = 0;
+        var displayHours = 0;
+
+        var status = "stopped";
+        function startStop(){
+
+        if(status === "stopped"){
+
+            interval = window.setInterval(stopWatch, 1000);
+            document.getElementById("toggle").innerHTML = "Stop";
+            status = "started";
+
+        }
+        else{
+
+            window.clearInterval(interval);
+            document.getElementById("toggle").innerHTML = "Start";
+            status = "stopped";
+
+        }
+
+        }
+
+        function stopWatch(){
+
+            sec++;
+
+            if(sec / 60 === 1){
+                sec = 0;
+                minutes++;
+
+                if(minutes / 60 === 1){
+                    minutes = 0;
+                    hours++;
+                }
+
+            }
+
+            if(sec < 10){
+                displaySec = "0" + sec.toString();
+            }
+            else{
+                displaySec = sec;
+            }
+
+            if(minutes < 10){
+                displayMinutes = "0" + minutes.toString();
+            }
+            else{
+                displayMinutes = minutes;
+            }
+
+            if(hours < 10){
+                displayHours = "0" + hours.toString();
+            }
+            else{
+                displayHours = hours;
+            }
+
+            document.getElementById("display").innerHTML = displayHours + ":" + displayMinutes + ":" + displaySec;
+
+        }
+
+        function reset(){
+
+            window.clearInterval(interval);
+            seconds = 0;
+            minutes = 0;
+            hours = 0;
+            document.getElementById("display").innerHTML = "00:00:00";
+            document.getElementById("toggle").innerHTML = "Start";
+
+        }
+       
+    </script>
+</body>
+
+</html>
